@@ -13,6 +13,17 @@
   --color-primary-900: #14532d;
 
   --font-poppins: Poppins, sans-serif;
+
+  --animate-slide-in-left: slide-in-left 0.3s ease-out forwards;
+}
+
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 @layer base {
@@ -33,4 +44,14 @@
 
 @utility container {
   @apply mx-auto px-4 lg:px-1;
+}
+
+@layer components {
+  .btn {
+    @apply bg-primary-500 hover:bg-primary-600 rounded px-4 py-2 font-semibold text-white transition-colors;
+  }
+
+  .input-control {
+    @apply focus:ring-primary-500 rounded border border-gray-300 px-3 py-1 placeholder:text-sm placeholder:text-gray-500 focus:ring-1 focus:outline-none;
+  }
 }
