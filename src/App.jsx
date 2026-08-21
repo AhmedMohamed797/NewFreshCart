@@ -7,6 +7,7 @@ library.add(fas, far, fab);
 
 import { createBrowserRouter, Navigate } from "react-router";
 import { RouterProvider } from "react-router/dom";
+import { Bounce, ToastContainer } from "react-toastify";
 import Layout from "./components/Layout/Layout";
 import Brands from "./pages/Brands/Brands";
 import Cart from "./pages/Cart/Cart";
@@ -71,6 +72,19 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        hideProgressBar={true}
+        newestOnTop={true}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />
     </>
   );
 }

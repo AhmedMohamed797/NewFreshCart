@@ -174,7 +174,7 @@ export default function Navbar() {
         <div className="hidden bg-gray-100/60 py-3 text-[15px] lg:block">
           <div className="container flex items-center gap-8">
             <div className="group relative">
-              <button className="btn flex items-center gap-2 text-sm">
+              <button className="btn bg-primary-600 flex items-center gap-2 text-sm text-white">
                 <FontAwesomeIcon icon="fa-solid fa-bars" />
                 <span>All Categories</span>
                 <FontAwesomeIcon icon="fa-solid fa-angle-down" />
