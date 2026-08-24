@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import loginImg from "../../assets/imgs/login-img.png";
+import { sendDataToLogin } from "../../services/auth.service";
 
 export default function Login() {
   const Navigate = useNavigate();
@@ -26,22 +26,15 @@ export default function Login() {
 
   async function handleSignin(values) {
     try {
-      const options = {
-        method: "POST",
-        url: `https://ecommerce.routemisr.com/api/v1/auth/signin`,
-        data: {
-          email: values.email,
-          password: values.password,
-        },
-      };
+      const response = await sendDataToLogin(values);
 
-      await axios.request(options);
+      if (response.success) {
+        toast("Welcome Back!");
 
-      toast("User signin Successfully!!");
-
-      setTimeout(() => {
-        Navigate("/home");
-      }, 3000);
+        setTimeout(() => {
+          Navigate("/home");
+        }, 2500);
+      }
     } catch (error) {
       setIsExistError(error.response.data.message);
     }

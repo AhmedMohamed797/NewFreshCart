@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import reviewImg from "../../assets/imgs/review-author.png";
+import { sendDataToSignUp } from "../../services/auth.service.js";
 import { checkPasswordStrength } from "../../utils/validation.js";
 
 export default function Signup() {
@@ -50,25 +50,14 @@ export default function Signup() {
 
   async function handleSubmit(values) {
     try {
-      const options = {
-        method: "POST",
-        url: `https://ecommerce.routemisr.com/api/v1/auth/signup`,
-        data: {
-          name: values.name,
-          email: values.email,
-          password: values.password,
-          rePassword: values.rePassword,
-          phone: values.phone,
-        },
-      };
+      const response = await sendDataToSignUp(values);
 
-      await axios.request(options);
-
-      toast("User Registered Successfully!!");
-
-      setTimeout(() => {
-        Navigate("/login");
-      }, 3000);
+      if (response.success) {
+        toast("User Registered Successfully!!");
+        setTimeout(() => {
+          Navigate("/login");
+        }, 3000);
+      }
     } catch (error) {
       setIsExistError(error.response.data.message);
     }
@@ -241,7 +230,10 @@ export default function Signup() {
                   id="email"
                   placeholder="ali@gmail.com"
                   name="email"
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    setIsExistError("");
+                    formik.handleChange(e);
+                  }}
                   onBlur={formik.handleBlur}
                 />
 
