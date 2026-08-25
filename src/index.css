@@ -55,3 +55,13 @@
     @apply focus:border-primary-500 rounded-md border border-gray-300/50 px-3 py-2 focus:outline-none;
   }
 }
+
+/* * Styles for slider */
+.swiper-button-prev,
+.swiper-button-next {
+  @apply hidden! size-11! rounded-full bg-gray-100/20 font-bold! text-white! *:h-6! md:flex!;
+}
+
+.swiper-pagination-bullet-active {
+  @apply w-6! rounded-full! bg-white!;
+}
