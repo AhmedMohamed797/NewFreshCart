@@ -9,6 +9,7 @@ import { createBrowserRouter, Navigate } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import { Bounce, ToastContainer } from "react-toastify";
 import Layout from "./components/Layout/Layout";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Brands from "./pages/Brands/Brands";
 import Cart from "./pages/Cart/Cart";
 import Categories from "./pages/Categories/Categories";
@@ -36,6 +37,10 @@ function App() {
         {
           path: "brands",
           element: <Brands />,
+        },
+        {
+          path: "products/:id",
+          element: <ProductDetails />,
         },
         {
           path: "cart",
