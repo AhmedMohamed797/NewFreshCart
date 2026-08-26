@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router";
+import { calcDiscount } from "../../utils/calc-discount";
 import Rating from "../Rating/Rating";
 
 export default function ProductCard({ productInfo }) {
@@ -11,6 +12,7 @@ export default function ProductCard({ productInfo }) {
     ratingsAverage,
     ratingsQuantity,
     title,
+    priceAfterDiscount,
   } = productInfo;
 
   return (
@@ -50,9 +52,9 @@ export default function ProductCard({ productInfo }) {
                 {price} EGP
               </span>
 
-              {productInfo.priceAfterDiscount && (
+              {priceAfterDiscount && (
                 <del className="text-sm text-gray-500">
-                  {productInfo.priceAfterDiscount} EGP
+                  {priceAfterDiscount} EGP
                 </del>
               )}
             </div>
@@ -77,13 +79,9 @@ export default function ProductCard({ productInfo }) {
           </button>
         </div>
 
-        {productInfo.priceAfterDiscount && (
+        {priceAfterDiscount && (
           <span className="badge absolute top-4 left-4 rounded-md bg-red-500 px-2 py-1 text-white">
-            -
-            {(((price - productInfo.priceAfterDiscount) / price) * 100).toFixed(
-              0,
-            )}
-            %
+            -{calcDiscount({ price, priceAfterDiscount })}%
           </span>
         )}
       </div>

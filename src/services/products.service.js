@@ -19,3 +19,13 @@ export async function getProducts({
   const response = await apiClient.request(options);
   return response;
 }
+
+export async function getProductById({ id }) {
+  const options = {
+    method: "GET",
+    url: `/products/${id}`,
+  };
+
+  const response = await apiClient.request(options);
+  return response;
+}
