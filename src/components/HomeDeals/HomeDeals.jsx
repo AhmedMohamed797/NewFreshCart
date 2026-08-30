@@ -1,35 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
-import { getProducts } from "../../services/products.service";
 import { calcLeftTime } from "../../utils/counter-down";
 import ProductCard from "../ProductCard/ProductCard";
 import Loading from "./../Loading/Loading";
+import { ProductsContext } from "../../context/ProductsContext/ProductsContext";
 
 export default function HomeDeals() {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { products, isLoading } = useContext(ProductsContext);
   const [leftTime, setLeftTime] = useState({
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
-
-  useEffect(() => {
-    async function getAllProducts() {
-      try {
-        const response = await getProducts();
-        if (response.success) {
-          setIsLoading(false);
-          setProducts(response.data.data);
-        }
-      } catch (error) {
-        setIsLoading(true);
-        console.log(error);
-      }
-    }
-    getAllProducts();
-  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {

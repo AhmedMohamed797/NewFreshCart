@@ -10,6 +10,8 @@ import { RouterProvider } from "react-router/dom";
 import { Bounce, ToastContainer } from "react-toastify";
 import Layout from "./components/Layout/Layout";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
+import CategoriesProvider from "./context/CategoriesContext/CategoriesProvider";
+import ProductsProvider from "./context/ProductsContext/ProductsProvider";
 import Brands from "./pages/Brands/Brands";
 import Cart from "./pages/Cart/Cart";
 import Categories from "./pages/Categories/Categories";
@@ -76,20 +78,24 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
-      <ToastContainer
-        position="top-right"
-        autoClose={2500}
-        hideProgressBar={true}
-        newestOnTop={true}
-        closeOnClick={true}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
+      <ProductsProvider>
+        <CategoriesProvider>
+          <RouterProvider router={router} />
+          <ToastContainer
+            position="top-right"
+            autoClose={2500}
+            hideProgressBar={true}
+            newestOnTop={true}
+            closeOnClick={true}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            transition={Bounce}
+          />
+        </CategoriesProvider>
+      </ProductsProvider>
     </>
   );
 }
