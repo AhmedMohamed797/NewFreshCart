@@ -1,29 +1,10 @@
-import { useEffect, useState } from "react";
-import { getProducts } from "../../services/products.service";
+import { useContext } from "react";
 import Loading from "../Loading/Loading";
 import ProductCard from "./../ProductCard/ProductCard";
+import { ProductsContext } from "../../context/ProductsContext/ProductsContext";
 
 export default function FeaturedProducts() {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function getAllProducts() {
-      try {
-        const response = await getProducts();
-
-        if (response.success) {
-          setIsLoading(false);
-          setProducts(response.data.data);
-        }
-      } catch (error) {
-        setIsLoading(true);
-        console.log(error);
-      }
-    }
-
-    getAllProducts();
-  }, []);
+  const { products, isLoading } = useContext(ProductsContext);
 
   if (isLoading) {
     return <Loading />;

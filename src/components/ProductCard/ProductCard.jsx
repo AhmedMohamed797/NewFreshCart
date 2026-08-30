@@ -73,7 +73,7 @@ export default function ProductCard({ productInfo }) {
             <FontAwesomeIcon icon="fa-solid fa-code-compare" />
           </button>
           <button>
-            <Link to={`/products/1`}>
+            <Link to={`/products/${id}`}>
               <FontAwesomeIcon icon="fa-solid fa-eye" />
             </Link>
           </button>
