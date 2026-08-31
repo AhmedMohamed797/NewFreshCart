@@ -10,8 +10,10 @@ import { RouterProvider } from "react-router/dom";
 import { Bounce, ToastContainer } from "react-toastify";
 import Layout from "./components/Layout/Layout";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import CategoriesProvider from "./context/CategoriesContext/CategoriesProvider";
 import ProductsProvider from "./context/ProductsContext/ProductsProvider";
+import TokenProvider from "./context/TokenContext/TokenProvider";
 import Brands from "./pages/Brands/Brands";
 import Cart from "./pages/Cart/Cart";
 import Categories from "./pages/Categories/Categories";
@@ -46,7 +48,11 @@ function App() {
         },
         {
           path: "cart",
-          element: <Cart />,
+          element: (
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "categories",
@@ -62,11 +68,19 @@ function App() {
         },
         {
           path: "orders",
-          element: <Orders />,
+          element: (
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "wishlist",
-          element: <Wishlist />,
+          element: (
+            <ProtectedRoute>
+              <Wishlist />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "*",
@@ -78,24 +92,26 @@ function App() {
 
   return (
     <>
-      <ProductsProvider>
-        <CategoriesProvider>
-          <RouterProvider router={router} />
-          <ToastContainer
-            position="top-right"
-            autoClose={2500}
-            hideProgressBar={true}
-            newestOnTop={true}
-            closeOnClick={true}
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-            transition={Bounce}
-          />
-        </CategoriesProvider>
-      </ProductsProvider>
+      <TokenProvider>
+        <ProductsProvider>
+          <CategoriesProvider>
+            <RouterProvider router={router} />
+            <ToastContainer
+              position="top-right"
+              autoClose={2500}
+              hideProgressBar={true}
+              newestOnTop={true}
+              closeOnClick={true}
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+              transition={Bounce}
+            />
+          </CategoriesProvider>
+        </ProductsProvider>
+      </TokenProvider>
     </>
   );
 }

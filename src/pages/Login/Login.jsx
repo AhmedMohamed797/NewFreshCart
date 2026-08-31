@@ -1,16 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFormik } from "formik";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import loginImg from "../../assets/imgs/login-img.png";
+import { TokenContext } from "../../context/TokenContext/TokenContext";
 import { sendDataToLogin } from "../../services/auth.service";
 
 export default function Login() {
   const Navigate = useNavigate();
   const [isExistError, setIsExistError] = useState(null);
   const [isPassShown, setIsPassShown] = useState(false);
+  const { setToken } = useContext(TokenContext);
+  const location = useLocation();
 
   const emailRegex =
     /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/gm;
@@ -31,8 +34,11 @@ export default function Login() {
       if (response.success) {
         toast("Welcome Back!");
 
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+
         setTimeout(() => {
-          Navigate("/home");
+          Navigate(location?.state?.from || "/");
         }, 2500);
       }
     } catch (error) {
