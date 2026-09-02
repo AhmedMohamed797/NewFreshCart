@@ -11,6 +11,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import Layout from "./components/Layout/Layout";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import CartProvider from "./context/CartContext/CartProvider";
 import CategoriesProvider from "./context/CategoriesContext/CategoriesProvider";
 import ProductsProvider from "./context/ProductsContext/ProductsProvider";
 import TokenProvider from "./context/TokenContext/TokenProvider";
@@ -93,24 +94,25 @@ function App() {
   return (
     <>
       <TokenProvider>
-        <ProductsProvider>
-          <CategoriesProvider>
-            <RouterProvider router={router} />
-            <ToastContainer
-              position="top-right"
-              autoClose={2500}
-              hideProgressBar={true}
-              newestOnTop={true}
-              closeOnClick={true}
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="dark"
-              transition={Bounce}
-            />
-          </CategoriesProvider>
-        </ProductsProvider>
+        <CartProvider>
+          <ProductsProvider>
+            <CategoriesProvider>
+              <RouterProvider router={router} />
+              <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick={true}
+                pauseOnHover={false}
+                rtl={false}
+                theme="colored"
+                closeButton={false}
+                transition={Bounce}
+              />
+            </CategoriesProvider>
+          </ProductsProvider>
+        </CartProvider>
       </TokenProvider>
     </>
   );

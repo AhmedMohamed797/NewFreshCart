@@ -35,13 +35,18 @@ export default function Login() {
         toast("Welcome Back!");
 
         setToken(response.data.token);
-        localStorage.setItem("token", response.data.token);
+
+        if (values.rememberMe) {
+          localStorage.setItem("token", response.data.token);
+        } else {
+          sessionStorage.setItem("token", response.data.token);
+        }
 
         setTimeout(() => {
           Navigate(location?.state?.from || "/");
         }, 2500);
       }
-    } catch (error) {
+    } catch ({error}) {
       setIsExistError(error.response.data.message);
     }
   }
@@ -50,6 +55,7 @@ export default function Login() {
     initialValues: {
       email: "",
       password: "",
+      rememberMe: false,
     },
 
     validationSchema,
@@ -221,14 +227,17 @@ export default function Login() {
                 )}
               </div>
 
-              <div className="keepSignin">
+              <div className="rememberMe">
                 <div className="flex items-center gap-2">
                   <input
                     className="accent-primary-600 size-4"
                     type="checkbox"
-                    id="keepSignin"
+                    id="rememberMe"
+                    name="rememberMe"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
-                  <label htmlFor="keepSignin">Keep me signed in</label>
+                  <label htmlFor="rememberMe">Keep me signed in</label>
                 </div>
               </div>
 

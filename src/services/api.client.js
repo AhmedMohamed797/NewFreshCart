@@ -6,6 +6,17 @@ export const apiClient = axios.create({
   timeout: 30000,
 });
 
+apiClient.interceptors.request.use((config) => {
+  const token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
+
+  if (token) {
+    config.headers.token = token;
+  }
+
+  return config;
+});
+
 apiClient.interceptors.response.use(
   (response) => {
     return Promise.resolve({
