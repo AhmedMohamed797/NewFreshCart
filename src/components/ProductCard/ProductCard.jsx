@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext } from "react";
 import { Link } from "react-router";
+import { CartContext } from "../../context/CartContext/CartContext";
 import { calcDiscount } from "../../utils/calc-discount";
 import Rating from "../Rating/Rating";
 
@@ -14,6 +16,8 @@ export default function ProductCard({ productInfo }) {
     title,
     priceAfterDiscount,
   } = productInfo;
+
+  const { addingProductToCart } = useContext(CartContext);
 
   return (
     <>
@@ -59,7 +63,12 @@ export default function ProductCard({ productInfo }) {
               )}
             </div>
 
-            <button className="btn hover:bg-primary-700 bg-primary-600 size-9 rounded-full p-0 text-white">
+            <button
+              onClick={() => {
+                addingProductToCart(id);
+              }}
+              className="btn hover:bg-primary-700 bg-primary-600 size-9 rounded-full p-0 text-white"
+            >
               <FontAwesomeIcon icon="fa-solid fa-plus" />
             </button>
           </div>

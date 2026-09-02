@@ -17,7 +17,6 @@ export default function ProductDetails() {
         const response = await getProductById({ id });
 
         if (response.success) {
-          console.log(response);
           setIsLoading(false);
           setProductDetails(response.data.data);
         }

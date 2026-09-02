@@ -1,10 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router";
 import freshCartLogo from "../../assets/imgs/freshcart-logo.svg";
+import { TokenContext } from "../../context/TokenContext/TokenContext";
+import { CartContext } from "./../../context/CartContext/CartContext";
 
 export default function Navbar() {
+  const { token, logOut } = useContext(TokenContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cartInfo, isLoading } = useContext(CartContext);
 
   function changeMenu() {
     return setIsMenuOpen(!isMenuOpen);
@@ -99,10 +103,15 @@ export default function Navbar() {
                 />
                 <span className="text-sm">Cart</span>
                 <span className="bg-primary-500 absolute top-0 right-0 flex size-5 -translate-y-1/2 items-center justify-center rounded-full text-white">
-                  5
+                  {isLoading && token ? (
+                    <FontAwesomeIcon icon="fa-solid fa-spinner" spin />
+                  ) : (
+                    cartInfo?.numOfCartItems || 0
+                  )}
                 </span>
               </NavLink>
             </li>
+
             <li>
               <NavLink
                 to={"/account"}
@@ -117,45 +126,53 @@ export default function Navbar() {
                 <span className="text-sm">Account</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to={"/signup"}
-                className={({ isActive }) => {
-                  return `${isActive ? "text-primary-600" : ""} hover:text-primary-600 flex flex-col items-center gap-1 transition-colors duration-200`;
-                }}
+
+            {!token ? (
+              <>
+                {" "}
+                <li>
+                  <NavLink
+                    to={"/signup"}
+                    className={({ isActive }) => {
+                      return `${isActive ? "text-primary-600" : ""} hover:text-primary-600 flex flex-col items-center gap-1 transition-colors duration-200`;
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      className="text-lg"
+                      icon="fa-solid fa-user-plus"
+                    />
+                    <span className="text-sm">Signup</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={"/login"}
+                    className={({ isActive }) => {
+                      return `${isActive ? "text-primary-600" : ""} hover:text-primary-600 flex flex-col items-center gap-1 transition-colors duration-200`;
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      className="text-lg"
+                      icon="fa-regular fa-id-card"
+                    />
+                    <span className="text-sm">Login</span>
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <li
+                onClick={logOut}
+                className={
+                  "hover:text-primary-600 flex cursor-pointer flex-col items-center gap-1 transition-colors duration-200"
+                }
               >
                 <FontAwesomeIcon
                   className="text-lg"
-                  icon="fa-solid fa-user-plus"
+                  icon="fa-solid fa-right-from-bracket"
                 />
-                <span className="text-sm">Signup</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to={"/login"}
-                className={({ isActive }) => {
-                  return `${isActive ? "text-primary-600" : ""} hover:text-primary-600 flex flex-col items-center gap-1 transition-colors duration-200`;
-                }}
-              >
-                <FontAwesomeIcon
-                  className="text-lg"
-                  icon="fa-regular fa-id-card"
-                />
-                <span className="text-sm">Login</span>
-              </NavLink>
-            </li>
-            <li
-              className={
-                "hover:text-primary-600 flex cursor-pointer flex-col items-center gap-1 transition-colors duration-200"
-              }
-            >
-              <FontAwesomeIcon
-                className="text-lg"
-                icon="fa-solid fa-right-from-bracket"
-              />
-              <span className="text-sm">Logout</span>
-            </li>
+                <span className="text-sm">Logout</span>
+              </li>
+            )}
           </ul>
 
           <div
@@ -380,7 +397,11 @@ export default function Navbar() {
                     />
                     <span>Cart</span>
                     <span className="bg-primary-500 absolute top-0 left-0 flex size-5 -translate-y-1/2 items-center justify-center rounded-full text-white">
-                      5
+                      {isLoading && token ? (
+                        <FontAwesomeIcon icon="fa-solid fa-spinner" spin />
+                      ) : (
+                        cartInfo?.numOfCartItems || 0
+                      )}
                     </span>
                   </NavLink>
                 </li>
@@ -405,45 +426,52 @@ export default function Navbar() {
               <h2 className="mb-3 text-xl font-bold">Account</h2>
 
               <ul className="flex flex-col gap-6">
-                <li>
-                  <NavLink
-                    to={"/signup"}
-                    className={({ isActive }) => {
-                      return `${isActive ? "text-primary-600" : ""} hover:text-primary-600 flex items-center gap-1 transition-colors duration-200`;
-                    }}
+                {!token ? (
+                  <>
+                    {" "}
+                    <li>
+                      <NavLink
+                        to={"/signup"}
+                        className={({ isActive }) => {
+                          return `${isActive ? "text-primary-600" : ""} hover:text-primary-600 flex items-center gap-1 transition-colors duration-200`;
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          className="text-lg"
+                          icon="fa-solid fa-user-plus"
+                        />
+                        <span>Signup</span>
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to={"/login"}
+                        className={({ isActive }) => {
+                          return `${isActive ? "text-primary-600" : ""} hover:text-primary-600 flex items-center gap-1 transition-colors duration-200`;
+                        }}
+                      >
+                        <FontAwesomeIcon
+                          className="text-lg"
+                          icon="fa-regular fa-id-card"
+                        />
+                        <span>Login</span>
+                      </NavLink>
+                    </li>
+                  </>
+                ) : (
+                  <li
+                    onClick={logOut}
+                    className={
+                      "hover:text-primary-600 flex cursor-pointer items-center gap-1 transition-colors duration-200"
+                    }
                   >
                     <FontAwesomeIcon
                       className="text-lg"
-                      icon="fa-solid fa-user-plus"
+                      icon="fa-solid fa-right-from-bracket"
                     />
-                    <span>Signup</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to={"/login"}
-                    className={({ isActive }) => {
-                      return `${isActive ? "text-primary-600" : ""} hover:text-primary-600 flex items-center gap-1 transition-colors duration-200`;
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      className="text-lg"
-                      icon="fa-regular fa-id-card"
-                    />
-                    <span>Login</span>
-                  </NavLink>
-                </li>
-                <li
-                  className={
-                    "hover:text-primary-600 flex cursor-pointer items-center gap-1 transition-colors duration-200"
-                  }
-                >
-                  <FontAwesomeIcon
-                    className="text-lg"
-                    icon="fa-solid fa-right-from-bracket"
-                  />
-                  <span>Logout</span>
-                </li>
+                    <span>Logout</span>
+                  </li>
+                )}
               </ul>
             </div>
           </div>

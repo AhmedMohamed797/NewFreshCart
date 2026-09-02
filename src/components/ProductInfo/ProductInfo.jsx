@@ -1,11 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext } from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/image-gallery.css";
+import { CartContext } from "../../context/CartContext/CartContext";
 import { calcDiscount } from "../../utils/calc-discount";
 import Rating from "./../Rating/Rating";
 
 export default function ProductInfo({ productDetails }) {
   const {
+    id,
     description,
     price,
     quantity,
@@ -15,6 +18,9 @@ export default function ProductInfo({ productDetails }) {
     priceAfterDiscount,
     images,
   } = productDetails;
+
+  const { addingProductToCart } = useContext(CartContext);
+
   return (
     <>
       <section className="pt-8">
@@ -98,31 +104,16 @@ export default function ProductInfo({ productDetails }) {
                     </span>
                   )}
                 </div>
-
-                {/* <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 bg-gray-50">
-                  <FontAwesomeIcon
-                    icon={faMinus}
-                    className="h-4 w-4 text-gray-400"
-                  />
-                </div>
-
-                <span className="min-w-[3rem] text-center text-xl font-semibold">
-                  1
-                </span>
-
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 bg-gray-50">
-                  <FontAwesomeIcon
-                    icon={faPlus}
-                    className="h-4 w-4 text-gray-400"
-                  />
-                </div>
-              </div> */}
               </div>
 
               {/* Action Buttons */}
               <div className="flex flex-col gap-4 pt-4 sm:flex-row">
-                <button className="btn hover:bg-primary-700 flex flex-1 items-center justify-center gap-2 rounded-lg bg-green-600 text-white transition-colors duration-500">
+                <button
+                  onClick={() => {
+                    addingProductToCart(id);
+                  }}
+                  className="btn hover:bg-primary-700 flex flex-1 items-center justify-center gap-2 rounded-lg bg-green-600 text-white transition-colors duration-500"
+                >
                   <FontAwesomeIcon icon="fa-solid fa-shopping-cart" />
                   Add to Cart
                 </button>
