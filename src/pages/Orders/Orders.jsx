@@ -15,6 +15,7 @@ import { Link } from "react-router";
 import { getAllOrder } from "../../services/order.service";
 import OrdersSkeleton from "./../../components/Skeleton/OrdersSkeleton";
 import { TokenContext } from "./../../context/TokenContext/TokenContext";
+import PageMetaTags from "./../PageMetaTag/PageMetaTag";
 
 export default function Orders() {
   const { userInfo } = useContext(TokenContext);
@@ -49,6 +50,10 @@ export default function Orders() {
 
   return (
     <>
+      <PageMetaTags
+        title="My Orders | FreshCart"
+        description="FreshCart - Track and manage your orders. View order history, payment status, and delivery details."
+      />
       <section>
         <h2 className="mb-3 text-xl font-bold">My Orders</h2>
         {/* Order is empty */}

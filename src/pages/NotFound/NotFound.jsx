@@ -1,10 +1,15 @@
 import { faHome, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router";
+import PageMetaTags from "../PageMetaTag/PageMetaTag";
 
 export default function NotFound() {
   return (
     <>
+      <PageMetaTags
+        title="Page Not Found | FreshCart"
+        description="FreshCart - The page you're looking for is not found. Return to home for fresh groceries and daily essentials."
+      />
       <div className="bg-gray-50">
         {/* Main Content */}
         <main className="px-4 py-16">

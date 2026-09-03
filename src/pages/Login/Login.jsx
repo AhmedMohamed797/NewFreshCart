@@ -7,6 +7,7 @@ import * as yup from "yup";
 import loginImg from "../../assets/imgs/login-img.png";
 import { TokenContext } from "../../context/TokenContext/TokenContext";
 import { sendDataToLogin } from "../../services/auth.service";
+import PageMetaTags from "../PageMetaTag/PageMetaTag";
 
 export default function Login() {
   const Navigate = useNavigate();
@@ -69,6 +70,10 @@ export default function Login() {
 
   return (
     <>
+      <PageMetaTags
+        title="Login | FreshCart"
+        description="FreshCart - Sign in to your account to continue shopping. Access your cart, orders, and personalized offers."
+      />
       <main className="min-h-screen py-12">
         <div className="container grid items-center lg:grid-cols-2 xl:px-20">
           {/* Left Side */}

@@ -9,9 +9,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { Link } from "react-router";
 import CartItem from "../../components/CartItem/CartItem";
-import Loading from "../../components/Loading/Loading";
+import CartSkeleton from "./../../components/Skeleton/CartSkeleton";
 import { CartContext } from "./../../context/CartContext/CartContext";
-import CartSkeleton from './../../components/Skeleton/CartSkeleton';
+import PageMetaTags from "../PageMetaTag/PageMetaTag";
 
 export default function Cart() {
   const { cartInfo, isLoading, handleClearCart } = useContext(CartContext);
@@ -22,6 +22,10 @@ export default function Cart() {
 
   return (
     <>
+      <PageMetaTags
+        title="Cart | FreshCart"
+        description="FreshCart - View and manage your shopping cart. Check your cart items, total price, and proceed to checkout."
+      />
       <div className="container py-16">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Left Section - Cart Items */}

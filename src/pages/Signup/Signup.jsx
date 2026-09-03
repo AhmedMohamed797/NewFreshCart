@@ -7,6 +7,7 @@ import * as yup from "yup";
 import reviewImg from "../../assets/imgs/review-author.png";
 import { sendDataToSignUp } from "../../services/auth.service.js";
 import { checkPasswordStrength } from "../../utils/validation.js";
+import PageMetaTags from "../PageMetaTag/PageMetaTag";
 
 export default function Signup() {
   const Navigate = useNavigate();
@@ -81,6 +82,10 @@ export default function Signup() {
 
   return (
     <>
+      <PageMetaTags
+        title="Signup | FreshCart"
+        description="FreshCart - Create your account to start shopping. Join thousands of happy customers and enjoy fresh grocery delivery."
+      />
       <main className="py-12">
         <div className="container grid gap-12 lg:grid-cols-2">
           {/* Left Side */}

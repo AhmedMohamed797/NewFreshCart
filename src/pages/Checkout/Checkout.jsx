@@ -23,6 +23,7 @@ import Loading from "../../components/Loading/Loading";
 import { createOrder } from "../../services/checkout.service";
 import { CartContext } from "./../../context/CartContext/CartContext";
 import CheckoutSkeleton from './../../components/Skeleton/CheckoutSkeleton';
+import PageMetaTags from "../PageMetaTag/PageMetaTag";
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -98,6 +99,10 @@ export default function Checkout() {
 
   return (
     <>
+      <PageMetaTags
+        title="Checkout | FreshCart"
+        description="FreshCart - Complete your order with secure checkout. Enter shipping details and choose your payment method."
+      />
       <section className="bg-gray-100/50">
         <div className="container max-w-6xl py-6">
           <form onSubmit={formik.handleSubmit}>

@@ -5,6 +5,7 @@ import ProductInfo from "../ProductInfo/ProductInfo";
 import RelatedProducts from "../RelatedProducts/RelatedProducts";
 import ProductDetailsTabs from "./../ProductDetailsTabs/ProductDetailsTabs";
 import ProductDetailsSkeleton from "./../Skeleton/ProductDetailsSkeleton";
+import PageMetaTags from "../../pages/PageMetaTag/PageMetaTag";
 
 export default function ProductDetails() {
   const [productDetails, setProductDetails] = useState(null);
@@ -33,6 +34,10 @@ export default function ProductDetails() {
 
   return (
     <>
+      <PageMetaTags
+        title={`${productDetails.title} | FreshCart`}
+        description={`FreshCart - Shop ${productDetails.title}. Premium quality fresh groceries with fast delivery and best prices.`}
+      />
       <ProductInfo productDetails={productDetails} />
       <ProductDetailsTabs productDetails={productDetails} />
       <RelatedProducts productDetails={productDetails} />
