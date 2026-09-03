@@ -207,7 +207,7 @@ export default function Navbar() {
                 <FontAwesomeIcon icon="fa-solid fa-angle-down" />
               </button>
 
-              <div className="absolute top-9 hidden min-w-52 rounded bg-white text-gray-900 shadow group-hover:block">
+              <div className="absolute top-9 z-20 hidden min-w-52 rounded bg-white text-gray-900 shadow group-hover:block">
                 <ul className="*:hover:text-primary-600 divide-y divide-gray-100 transition-colors duration-200 *:px-2 *:py-2 *:hover:bg-gray-100/60">
                   <li>
                     <Link
