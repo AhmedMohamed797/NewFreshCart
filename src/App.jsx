@@ -47,6 +47,10 @@ function App() {
           element: <Brands />,
         },
         {
+          path: "allorders",
+          element: <Navigate to={"/account/orders"} />,
+        },
+        {
           path: "products/:id",
           element: <ProductDetails />,
         },
