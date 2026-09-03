@@ -18,6 +18,7 @@ import TokenProvider from "./context/TokenContext/TokenProvider";
 import Brands from "./pages/Brands/Brands";
 import Cart from "./pages/Cart/Cart";
 import Categories from "./pages/Categories/Categories";
+import Checkout from "./pages/Checkout/Checkout";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound/NotFound";
@@ -52,6 +53,14 @@ function App() {
           element: (
             <ProtectedRoute>
               <Cart />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "checkout",
+          element: (
+            <ProtectedRoute>
+              <Checkout />
             </ProtectedRoute>
           ),
         },
