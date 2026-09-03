@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
+import { ProductsContext } from "../../context/ProductsContext/ProductsContext";
 import { calcLeftTime } from "../../utils/counter-down";
 import ProductCard from "../ProductCard/ProductCard";
-import Loading from "./../Loading/Loading";
-import { ProductsContext } from "../../context/ProductsContext/ProductsContext";
+import HomeDealsSkeleton from "./../Skeleton/HomeDealsSkeleton";
 
 export default function HomeDeals() {
   const { products, isLoading } = useContext(ProductsContext);
@@ -25,7 +25,7 @@ export default function HomeDeals() {
     };
   }, []);
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <HomeDealsSkeleton />;
 
   //*===> Get Deals
   const deals = products

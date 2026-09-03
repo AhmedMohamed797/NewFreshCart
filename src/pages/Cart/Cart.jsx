@@ -11,10 +11,11 @@ import { Link } from "react-router";
 import CartItem from "../../components/CartItem/CartItem";
 import Loading from "../../components/Loading/Loading";
 import { CartContext } from "./../../context/CartContext/CartContext";
+import CartSkeleton from './../../components/Skeleton/CartSkeleton';
 
 export default function Cart() {
   const { cartInfo, isLoading, handleClearCart } = useContext(CartContext);
-  if (isLoading) return <Loading />;
+  if (isLoading) return <CartSkeleton />;
 
   const { numOfCartItems, data } = cartInfo;
   const { totalCartPrice, products } = data;

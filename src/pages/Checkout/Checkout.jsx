@@ -22,6 +22,7 @@ import * as yup from "yup";
 import Loading from "../../components/Loading/Loading";
 import { createOrder } from "../../services/checkout.service";
 import { CartContext } from "./../../context/CartContext/CartContext";
+import CheckoutSkeleton from './../../components/Skeleton/CheckoutSkeleton';
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ export default function Checkout() {
     onSubmit: handleCheckout,
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <CheckoutSkeleton />;
 
   const { cartId, data } = cartInfo;
   const { totalCartPrice, products } = data;

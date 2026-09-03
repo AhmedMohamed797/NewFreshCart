@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getProductById } from "../../services/products.service";
-import Loading from "../Loading/Loading";
 import ProductInfo from "../ProductInfo/ProductInfo";
 import RelatedProducts from "../RelatedProducts/RelatedProducts";
 import ProductDetailsTabs from "./../ProductDetailsTabs/ProductDetailsTabs";
+import ProductDetailsSkeleton from "./../Skeleton/ProductDetailsSkeleton";
 
 export default function ProductDetails() {
   const [productDetails, setProductDetails] = useState(null);
@@ -29,7 +29,7 @@ export default function ProductDetails() {
     fetchProduct();
   }, [id]);
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <ProductDetailsSkeleton />;
 
   return (
     <>

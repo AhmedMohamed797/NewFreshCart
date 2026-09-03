@@ -11,7 +11,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getProducts } from "../../services/products.service";
 import ProductCard from "../ProductCard/ProductCard";
-import Loading from "./../Loading/Loading";
+import RelatedProductSkeleton from "./../Skeleton/RelatedProductSkeleton";
 
 export default function RelatedProducts({ productDetails }) {
   const [relatedProducts, setRelatedProducts] = useState(null);
@@ -38,7 +38,7 @@ export default function RelatedProducts({ productDetails }) {
     fetchRelatedProducts();
   }, [category._id]);
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <RelatedProductSkeleton />;
 
   return (
     <>
