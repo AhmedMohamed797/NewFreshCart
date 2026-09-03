@@ -141,6 +141,7 @@ export default function CartProvider({ children }) {
     <CartContext.Provider
       value={{
         cartInfo,
+        setCartInfo,
         isLoading,
         isError,
         error,
