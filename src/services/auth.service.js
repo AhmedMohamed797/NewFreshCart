@@ -30,3 +30,13 @@ export async function sendDataToLogin(values) {
   const data = await apiClient.request(options);
   return data;
 }
+
+export async function verifyToken() {
+  const options = {
+    url: "/auth/verifyToken",
+    method: "GET",
+  };
+
+  const response = await apiClient.request(options);
+  return response;
+}
