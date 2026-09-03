@@ -16,10 +16,10 @@ export default function CartProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState(null);
-  const { token } = useContext(TokenContext);
+  const { isAuthenticated } = useContext(TokenContext);
 
   async function fetchProductsFromCart() {
-    if (localStorage.getItem("token") || sessionStorage.getItem("token")) {
+    if (isAuthenticated) {
       try {
         setIsLoading(true);
         const response = await getCartItems();
@@ -135,7 +135,7 @@ export default function CartProvider({ children }) {
 
   useEffect(() => {
     fetchProductsFromCart();
-  }, [token]);
+  }, [isAuthenticated]);
 
   return (
     <CartContext.Provider

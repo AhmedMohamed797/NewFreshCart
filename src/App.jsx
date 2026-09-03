@@ -8,6 +8,7 @@ library.add(fas, far, fab);
 import { createBrowserRouter, Navigate } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import { Bounce, ToastContainer } from "react-toastify";
+import AccountLayout from "./components/AccountLayout/AccountLayout";
 import Layout from "./components/Layout/Layout";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -77,20 +78,42 @@ function App() {
           element: <Signup />,
         },
         {
-          path: "orders",
+          path: "account",
           element: (
             <ProtectedRoute>
-              <Orders />
+              <AccountLayout />
             </ProtectedRoute>
           ),
-        },
-        {
-          path: "wishlist",
-          element: (
-            <ProtectedRoute>
-              <Wishlist />
-            </ProtectedRoute>
-          ),
+          children: [
+            {
+              index: true,
+              element: <Navigate to={"dashboard"} replace />,
+            },
+            {
+              path: "orders",
+              element: <Orders />,
+            },
+            {
+              path: "wishlist",
+              element: <Wishlist />,
+            },
+            {
+              path: "dashboard",
+              element: <h1>Dashboard</h1>,
+            },
+            {
+              path: "address",
+              element: <h1>Address</h1>,
+            },
+            {
+              path: "payment-methods",
+              element: <h1>Payment Method</h1>,
+            },
+            {
+              path: "account-info",
+              element: <h1>Account Info</h1>,
+            },
+          ],
         },
         {
           path: "*",

@@ -6,7 +6,7 @@ import { TokenContext } from "../../context/TokenContext/TokenContext";
 import { CartContext } from "./../../context/CartContext/CartContext";
 
 export default function Navbar() {
-  const { token, logOut } = useContext(TokenContext);
+  const { isAuthenticated, logOut } = useContext(TokenContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cartInfo, isLoading } = useContext(CartContext);
 
@@ -78,7 +78,7 @@ export default function Navbar() {
           <ul className="hidden items-center gap-6 lg:flex">
             <li>
               <NavLink
-                to={"/wishlist"}
+                to={"/account/wishlist"}
                 className={({ isActive }) => {
                   return `${isActive ? "text-primary-600" : ""} hover:text-primary-600 flex flex-col items-center gap-1 transition-colors duration-200`;
                 }}
@@ -103,7 +103,7 @@ export default function Navbar() {
                 />
                 <span className="text-sm">Cart</span>
                 <span className="bg-primary-500 absolute top-0 right-0 flex size-5 -translate-y-1/2 items-center justify-center rounded-full text-white">
-                  {isLoading && token ? (
+                  {isLoading && isAuthenticated ? (
                     <FontAwesomeIcon icon="fa-solid fa-spinner" spin />
                   ) : (
                     cartInfo?.numOfCartItems || 0
@@ -127,7 +127,7 @@ export default function Navbar() {
               </NavLink>
             </li>
 
-            {!token ? (
+            {!isAuthenticated ? (
               <>
                 {" "}
                 <li>
@@ -372,7 +372,7 @@ export default function Navbar() {
               <ul className="flex flex-col gap-6">
                 <li>
                   <NavLink
-                    to={"/wishlist"}
+                    to={"/account/wishlist"}
                     className={({ isActive }) => {
                       return `${isActive ? "text-primary-600" : ""} hover:text-primary-600 flex items-center gap-1 transition-colors duration-200`;
                     }}
@@ -397,7 +397,7 @@ export default function Navbar() {
                     />
                     <span>Cart</span>
                     <span className="bg-primary-500 absolute top-0 left-0 flex size-5 -translate-y-1/2 items-center justify-center rounded-full text-white">
-                      {isLoading && token ? (
+                      {isLoading && isAuthenticated ? (
                         <FontAwesomeIcon icon="fa-solid fa-spinner" spin />
                       ) : (
                         cartInfo?.numOfCartItems || 0
@@ -426,7 +426,7 @@ export default function Navbar() {
               <h2 className="mb-3 text-xl font-bold">Account</h2>
 
               <ul className="flex flex-col gap-6">
-                {!token ? (
+                {!isAuthenticated ? (
                   <>
                     {" "}
                     <li>
