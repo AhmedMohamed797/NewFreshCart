@@ -10,6 +10,7 @@ import { RouterProvider } from "react-router/dom";
 import { Bounce, ToastContainer } from "react-toastify";
 import AccountLayout from "./components/AccountLayout/AccountLayout";
 import Layout from "./components/Layout/Layout";
+import OfflineBadge from "./components/OfflineBadge/OfflineBadge";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import CartProvider from "./context/CartContext/CartProvider";
@@ -125,27 +126,29 @@ function App() {
 
   return (
     <>
-      <TokenProvider>
-        <CartProvider>
-          <ProductsProvider>
-            <CategoriesProvider>
-              <RouterProvider router={router} />
-              <ToastContainer
-                position="top-right"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={true}
-                closeOnClick={true}
-                pauseOnHover={false}
-                rtl={false}
-                theme="colored"
-                closeButton={false}
-                transition={Bounce}
-              />
-            </CategoriesProvider>
-          </ProductsProvider>
-        </CartProvider>
-      </TokenProvider>
+      <OfflineBadge>
+        <TokenProvider>
+          <CartProvider>
+            <ProductsProvider>
+              <CategoriesProvider>
+                <RouterProvider router={router} />
+                <ToastContainer
+                  position="top-right"
+                  autoClose={2000}
+                  hideProgressBar={false}
+                  newestOnTop={true}
+                  closeOnClick={true}
+                  pauseOnHover={false}
+                  rtl={false}
+                  theme="colored"
+                  closeButton={false}
+                  transition={Bounce}
+                />
+              </CategoriesProvider>
+            </ProductsProvider>
+          </CartProvider>
+        </TokenProvider>
+      </OfflineBadge>
     </>
   );
 }

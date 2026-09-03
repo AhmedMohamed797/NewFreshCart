@@ -1,14 +1,17 @@
+import { faWifi } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router";
 import freshCartLogo from "../../assets/imgs/freshcart-logo.svg";
 import { TokenContext } from "../../context/TokenContext/TokenContext";
 import { CartContext } from "./../../context/CartContext/CartContext";
+import { useOnlineStatus } from "./../../hooks/useOnlineStatus";
 
 export default function Navbar() {
   const { isAuthenticated, logOut } = useContext(TokenContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cartInfo, isLoading } = useContext(CartContext);
+  const isOnline = useOnlineStatus();
 
   function changeMenu() {
     return setIsMenuOpen(!isMenuOpen);
@@ -28,6 +31,13 @@ export default function Navbar() {
               <FontAwesomeIcon icon="fa-regular fa-envelope" />
               <a href="mailto:support@freshcart.com">support@freshcart.com</a>
             </li>
+
+            {isOnline && (
+              <p className="text-primary-500 flex items-center gap-1">
+                <FontAwesomeIcon icon={faWifi} />
+                <span>Online</span>
+              </p>
+            )}
           </ul>
 
           <ul className="options flex items-center gap-5">
