@@ -2,12 +2,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { Link } from "react-router";
 import { CategoriesContext } from "../../context/CategoriesContext/CategoriesContext";
-import Loading from "../Loading/Loading";
+import HomeCategoriesSkeleton from "./../Skeleton/HomeCategoriesSkeleton";
 
 export default function HomeCategories() {
   const { categories, isLoading } = useContext(CategoriesContext);
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <HomeCategoriesSkeleton />;
 
   return (
     <>

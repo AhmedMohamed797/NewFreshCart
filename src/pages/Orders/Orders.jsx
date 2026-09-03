@@ -12,8 +12,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
-import Loading from "../../components/Loading/Loading";
 import { getAllOrder } from "../../services/order.service";
+import OrdersSkeleton from "./../../components/Skeleton/OrdersSkeleton";
 import { TokenContext } from "./../../context/TokenContext/TokenContext";
 
 export default function Orders() {
@@ -45,7 +45,7 @@ export default function Orders() {
     fetchOrders();
   }, [userInfo.id]);
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <OrdersSkeleton />;
 
   return (
     <>
