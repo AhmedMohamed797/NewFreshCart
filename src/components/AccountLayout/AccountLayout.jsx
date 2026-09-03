@@ -10,9 +10,13 @@ import {
   faSignOut,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext } from "react";
 import { NavLink, Outlet } from "react-router";
+import { TokenContext } from "./../../context/TokenContext/TokenContext";
 
 export default function AccountLayout() {
+  const { userInfo } = useContext(TokenContext);
+
   return (
     <section className="min-h-screen bg-gray-50 py-8">
       <div className="container mx-auto px-4">
@@ -29,9 +33,11 @@ export default function AccountLayout() {
                     />
                   </div>
                   <div>
-                    <h3 className="mb-1 font-semibold">{"user"}</h3>
+                    <h3 className="mb-1 font-semibold">
+                      {userInfo.role || "User"}
+                    </h3>
                     <p className="text-sm text-gray-500">
-                      {"example@gmail.com"}
+                      {userInfo.name || "Username"}
                     </p>
                   </div>
                 </div>
