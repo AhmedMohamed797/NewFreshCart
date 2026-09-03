@@ -8,6 +8,7 @@ export default function TokenProvider({ children }) {
   );
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState(null);
@@ -15,9 +16,11 @@ export default function TokenProvider({ children }) {
   useEffect(() => {
     const checkToken = async () => {
       try {
+        setIsLoading(true);
         const response = await verifyToken();
 
         if (response.success) {
+          setIsLoading(false);
           setIsAuthenticated(true);
           setUserInfo(response.data.decoded);
         }
@@ -25,6 +28,8 @@ export default function TokenProvider({ children }) {
         setIsAuthenticated(false);
         setIsError(true);
         setError(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -33,7 +38,7 @@ export default function TokenProvider({ children }) {
 
   function logOut() {
     setToken(null);
-    setIsAuthenticated(false)
+    setIsAuthenticated(false);
     localStorage.removeItem("token");
     sessionStorage.removeItem("token");
   }
@@ -48,6 +53,7 @@ export default function TokenProvider({ children }) {
         userInfo,
         isError,
         error,
+        isLoading,
       }}
     >
       {children}

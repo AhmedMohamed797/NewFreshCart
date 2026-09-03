@@ -30,8 +30,6 @@ export default function Orders() {
         setIsLoading(true);
         const response = await getAllOrder({ userId: userInfo.id });
 
-        console.log(response);
-
         if (response.success) {
           setIsLoading(false);
           setOrders(response.data);
