@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { ProductsContext } from "../../context/ProductsContext/ProductsContext";
+import useProducts from "../../hooks/useProducts";
 import { calcLeftTime } from "../../utils/counter-down";
 import ProductCard from "../ProductCard/ProductCard";
 import HomeDealsSkeleton from "./../Skeleton/HomeDealsSkeleton";
 
 export default function HomeDeals() {
-  const { products, isLoading } = useContext(ProductsContext);
+  const { products, isLoading } = useProducts();
   const [leftTime, setLeftTime] = useState({
     hours: 0,
     minutes: 0,

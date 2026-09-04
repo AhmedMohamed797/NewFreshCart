@@ -5,17 +5,17 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 library.add(fas, far, fab);
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, Navigate } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import { Bounce, ToastContainer } from "react-toastify";
+import { ReactQueryDevtools } from "./../node_modules/@tanstack/react-query-devtools/src/index";
 import AccountLayout from "./components/AccountLayout/AccountLayout";
 import Layout from "./components/Layout/Layout";
 import OfflineBadge from "./components/OfflineBadge/OfflineBadge";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import CartProvider from "./context/CartContext/CartProvider";
-import CategoriesProvider from "./context/CategoriesContext/CategoriesProvider";
-import ProductsProvider from "./context/ProductsContext/ProductsProvider";
 import TokenProvider from "./context/TokenContext/TokenProvider";
 import Brands from "./pages/Brands/Brands";
 import Cart from "./pages/Cart/Cart";
@@ -128,31 +128,32 @@ function App() {
     },
   ]);
 
+  const queryClient = new QueryClient();
+
   return (
     <>
-      <OfflineBadge>
-        <TokenProvider>
-          <CartProvider>
-            <ProductsProvider>
-              <CategoriesProvider>
-                <RouterProvider router={router} />
-                <ToastContainer
-                  position="top-right"
-                  autoClose={2000}
-                  hideProgressBar={false}
-                  newestOnTop={true}
-                  closeOnClick={true}
-                  pauseOnHover={false}
-                  rtl={false}
-                  theme="colored"
-                  closeButton={false}
-                  transition={Bounce}
-                />
-              </CategoriesProvider>
-            </ProductsProvider>
-          </CartProvider>
-        </TokenProvider>
-      </OfflineBadge>
+      <QueryClientProvider client={queryClient}>
+        <OfflineBadge>
+          <TokenProvider>
+            <CartProvider>
+              <RouterProvider router={router} />
+              <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick={true}
+                pauseOnHover={false}
+                rtl={false}
+                theme="colored"
+                closeButton={false}
+                transition={Bounce}
+              />
+            </CartProvider>
+          </TokenProvider>
+        </OfflineBadge>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </>
   );
 }
