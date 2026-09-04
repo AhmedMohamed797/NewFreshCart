@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { Link } from "react-router";
 import { CartContext } from "../../context/CartContext/CartContext";
+import { useAddProductToWishlist } from "../../hooks/useWishlist";
 import { calcDiscount } from "../../utils/calc-discount";
 import Rating from "../Rating/Rating";
 
@@ -18,6 +19,8 @@ export default function ProductCard({ productInfo }) {
   } = productInfo;
 
   const { addingProductToCart } = useContext(CartContext);
+  const { mutate: handleAddProductToWishlist, isPending: isAddingToWishlist } =
+    useAddProductToWishlist();
 
   return (
     <>
@@ -73,7 +76,10 @@ export default function ProductCard({ productInfo }) {
         </div>
 
         <div className="actions *:hover:text-primary-600 absolute top-4 right-4 flex flex-col gap-4 text-gray-500 *:transition-colors *:duration-200">
-          <button>
+          <button
+            onClick={() => handleAddProductToWishlist(id)}
+            disabled={isAddingToWishlist}
+          >
             <FontAwesomeIcon icon="fa-solid fa-heart" />
           </button>
           <button>

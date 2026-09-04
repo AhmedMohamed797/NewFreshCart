@@ -305,7 +305,7 @@ export default function Navbar() {
               </li>
               <li>
                 <NavLink
-                  to={"/products"}
+                  to={"/product"}
                   className={({ isActive }) => {
                     return `${isActive ? "text-primary-600" : ""} hover:text-primary-600 flex flex-col items-center gap-1 transition-colors duration-200`;
                   }}

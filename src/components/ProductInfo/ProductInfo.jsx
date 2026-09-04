@@ -3,6 +3,7 @@ import { useContext } from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/image-gallery.css";
 import { CartContext } from "../../context/CartContext/CartContext";
+import { useAddProductToWishlist } from "../../hooks/useWishlist";
 import { calcDiscount } from "../../utils/calc-discount";
 import Rating from "./../Rating/Rating";
 
@@ -20,6 +21,8 @@ export default function ProductInfo({ productDetails }) {
   } = productDetails;
 
   const { addingProductToCart } = useContext(CartContext);
+  const { mutate: handleAddProductToWishlist, isPending: isAddingToWishlist } =
+    useAddProductToWishlist();
 
   return (
     <>
@@ -53,7 +56,10 @@ export default function ProductInfo({ productDetails }) {
                 </span>
 
                 <ul className="flex items-center gap-2 text-gray-500">
-                  <button>
+                  <button
+                    onClick={() => handleAddProductToWishlist(id)}
+                    disabled={isAddingToWishlist}
+                  >
                     <FontAwesomeIcon icon="fa-solid fa-heart" />
                   </button>
                 </ul>
