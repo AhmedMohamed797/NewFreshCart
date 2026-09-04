@@ -4,10 +4,11 @@ import { Link } from "react-router";
 import useProducts from "../../hooks/useProducts";
 import { calcLeftTime } from "../../utils/counter-down";
 import ProductCard from "../ProductCard/ProductCard";
+import ErrorState from "./../ErrorState/ErrorState";
 import HomeDealsSkeleton from "./../Skeleton/HomeDealsSkeleton";
 
 export default function HomeDeals() {
-  const { products, isLoading } = useProducts();
+  const { products, isLoading, isError, error, refetch } = useProducts();
   const [leftTime, setLeftTime] = useState({
     hours: 0,
     minutes: 0,
@@ -26,6 +27,14 @@ export default function HomeDeals() {
   }, []);
 
   if (isLoading) return <HomeDealsSkeleton />;
+
+  if (isError)
+    return (
+      <ErrorState
+        message={`We couldn't load today's deals. ${error?.message ?? ""}`}
+        onRetry={refetch}
+      />
+    );
 
   //*===> Get Deals
   const deals = products

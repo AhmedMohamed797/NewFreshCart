@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import {
@@ -18,22 +18,31 @@ export default function CartProvider({ children }) {
   const [error, setError] = useState(null);
   const { isAuthenticated } = useContext(TokenContext);
 
-  async function fetchProductsFromCart() {
-    if (isAuthenticated) {
-      try {
-        setIsLoading(true);
-        const response = await getCartItems();
+  const fetchProductsFromCart = useCallback(() => {
+    getCartItems()
+      .then((response) => {
         if (response.success) {
-          setIsLoading(false);
+          setIsError(false);
           setCartInfo(response.data);
         }
-      } catch (error) {
+      })
+      .catch((err) => {
         setIsError(true);
-        setError(error);
-      } finally {
+        setError(err);
+        setCartInfo({
+          numOfCartItems: 0,
+          data: { products: [], totalCartPrice: 0 },
+        });
+      })
+      .finally(() => {
         setIsLoading(false);
-      }
-    }
+      });
+  }, []);
+
+  function refetchCart() {
+    setIsLoading(true);
+    setIsError(false);
+    fetchProductsFromCart();
   }
 
   async function addingProductToCart(id) {
@@ -134,8 +143,10 @@ export default function CartProvider({ children }) {
   }
 
   useEffect(() => {
-    fetchProductsFromCart();
-  }, [isAuthenticated]);
+    if (isAuthenticated) {
+      fetchProductsFromCart();
+    }
+  }, [isAuthenticated, fetchProductsFromCart]);
 
   return (
     <CartContext.Provider
@@ -145,6 +156,7 @@ export default function CartProvider({ children }) {
         isLoading,
         isError,
         error,
+        refetchCart,
         addingProductToCart,
         handleRemoveItemFromCart,
         handleUpdateCount,

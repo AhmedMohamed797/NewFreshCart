@@ -19,6 +19,7 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import ErrorState from "../../components/ErrorState/ErrorState";
 import Loading from "../../components/Loading/Loading";
 import { createOrder } from "../../services/checkout.service";
 import { CartContext } from "./../../context/CartContext/CartContext";
@@ -27,7 +28,8 @@ import PageMetaTags from "../PageMetaTag/PageMetaTag";
 
 export default function Checkout() {
   const navigate = useNavigate();
-  const { cartInfo, setCartInfo, isLoading } = useContext(CartContext);
+  const { cartInfo, setCartInfo, isLoading, isError, error, refetchCart } =
+    useContext(CartContext);
 
   const validationSchema = yup.object({
     paymentMethod: yup.string().required("payment method is required"),
@@ -56,6 +58,15 @@ export default function Checkout() {
   });
 
   if (isLoading) return <CheckoutSkeleton />;
+
+  if (isError || !cartInfo)
+    return (
+      <ErrorState
+        title="We couldn't load your cart"
+        message={error?.message}
+        onRetry={refetchCart}
+      />
+    );
 
   const { cartId, data } = cartInfo;
   const { totalCartPrice, products } = data;

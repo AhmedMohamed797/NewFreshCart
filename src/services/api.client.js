@@ -28,7 +28,7 @@ apiClient.interceptors.response.use(
     return Promise.reject({
       success: false,
       error: error,
-      message: error.response.data.message,
+      message: error.response?.data?.message ?? error.message ?? "Network error",
     });
   },
 );

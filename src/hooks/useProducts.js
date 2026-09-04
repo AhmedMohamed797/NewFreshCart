@@ -7,6 +7,7 @@ export default function useProducts() {
     isLoading,
     isError,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
@@ -20,5 +21,6 @@ export default function useProducts() {
     isError,
     isLoading,
     error,
+    refetch,
   };
 }

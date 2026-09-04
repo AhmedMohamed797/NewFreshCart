@@ -7,6 +7,7 @@ export default function useCategories() {
     isLoading,
     isError,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["categories"],
     queryFn: fetchCategories,
@@ -21,5 +22,6 @@ export default function useCategories() {
     isError,
     isLoading,
     error,
+    refetch,
   };
 }

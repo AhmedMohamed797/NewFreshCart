@@ -11,10 +11,21 @@ export async function getProducts({
   limit,
   fields,
 } = {}) {
-  const options = {
-    method: "GET",
-    url: `/products?${page ? `page=${page}` : ""}${keyword ? `&keyword=${keyword}` : ""}${sortBy ? `&sort=${sortBy}` : ""}${brand ? `&brand=${brand}` : ""}${category ? `&category=${category}` : ""}${priceGreaterThan ? `price[gte]=${priceGreaterThan}` : ""}${priceLessThan ? `price[lte]=${priceLessThan}` : ""}${limit ? `limit=${limit}` : ""}${fields ? `fields=${fields}` : ""}`,
-  };
+  const params = Object.fromEntries(
+    Object.entries({
+      page,
+      keyword,
+      sort: sortBy,
+      brand,
+      category,
+      limit,
+      fields,
+    }).filter(([, v]) => v !== undefined && v !== ""),
+  );
+  if (priceGreaterThan) params["price[gte]"] = priceGreaterThan;
+  if (priceLessThan) params["price[lte]"] = priceLessThan;
+
+  const options = { method: "GET", url: "/products", params };
 
   const response = await apiClient.request(options);
   return response;
