@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import { ProductsContext } from "../../context/ProductsContext/ProductsContext";
+import useProducts from "../../hooks/useProducts";
 import ProductCard from "./../ProductCard/ProductCard";
 import FeaturedProductsSkeleton from "./../Skeleton/FeaturedProductsSkeleton";
 
 export default function FeaturedProducts() {
-  const { products, isLoading } = useContext(ProductsContext);
+  const { products, isLoading } = useProducts();
 
   if (isLoading) {
     return <FeaturedProductsSkeleton />;
