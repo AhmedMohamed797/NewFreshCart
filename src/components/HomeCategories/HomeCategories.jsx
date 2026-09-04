@@ -1,12 +1,21 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router";
 import useCategories from "./../../hooks/useCategories";
+import ErrorState from "./../ErrorState/ErrorState";
 import HomeCategoriesSkeleton from "./../Skeleton/HomeCategoriesSkeleton";
 
 export default function HomeCategories() {
-  const { categories, isLoading } = useCategories();
+  const { categories, isLoading, isError, error, refetch } = useCategories();
 
   if (isLoading) return <HomeCategoriesSkeleton />;
+
+  if (isError)
+    return (
+      <ErrorState
+        message={`We couldn't load categories. ${error?.message ?? ""}`}
+        onRetry={refetch}
+      />
+    );
 
   return (
     <>

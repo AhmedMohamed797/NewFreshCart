@@ -7,6 +7,7 @@ export default function useProductDetails(id) {
     isLoading,
     isError,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["productDetails", id],
     queryFn: () => getProductById({ id }),
@@ -20,5 +21,6 @@ export default function useProductDetails(id) {
     isError,
     isLoading,
     error,
+    refetch,
   };
 }

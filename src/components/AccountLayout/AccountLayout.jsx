@@ -15,7 +15,7 @@ import { NavLink, Outlet } from "react-router";
 import { TokenContext } from "./../../context/TokenContext/TokenContext";
 
 export default function AccountLayout() {
-  const { userInfo } = useContext(TokenContext);
+  const { userInfo, logOut } = useContext(TokenContext);
 
   return (
     <section className="min-h-screen bg-gray-50 py-8">
@@ -150,7 +150,10 @@ export default function AccountLayout() {
 
                   {/* Logout Button */}
                   <li className="mt-2 border-t border-gray-100 pt-2">
-                    <button className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-red-600 transition-all duration-200 hover:bg-red-50">
+                    <button
+                      onClick={logOut}
+                      className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-red-600 transition-all duration-200 hover:bg-red-50"
+                    >
                       <FontAwesomeIcon icon={faSignOut} className="h-5 w-5" />
                       <span>Logout</span>
                     </button>

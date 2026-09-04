@@ -53,13 +53,11 @@ export default function ProductCard({ productInfo }) {
           <div className="flex items-center justify-between">
             <div className="price space-x-2">
               <span className="text-primary-600 text-lg font-semibold">
-                {price} EGP
+                {priceAfterDiscount || price} EGP
               </span>
 
               {priceAfterDiscount && (
-                <del className="text-sm text-gray-500">
-                  {priceAfterDiscount} EGP
-                </del>
+                <del className="text-sm text-gray-500">{price} EGP</del>
               )}
             </div>
 

@@ -1,13 +1,22 @@
 import useProducts from "../../hooks/useProducts";
+import ErrorState from "../ErrorState/ErrorState";
 import ProductCard from "./../ProductCard/ProductCard";
 import FeaturedProductsSkeleton from "./../Skeleton/FeaturedProductsSkeleton";
 
 export default function FeaturedProducts() {
-  const { products, isLoading } = useProducts();
+  const { products, isLoading, isError, error, refetch } = useProducts();
 
   if (isLoading) {
     return <FeaturedProductsSkeleton />;
   }
+
+  if (isError)
+    return (
+      <ErrorState
+        message={`We couldn't load featured products. ${error?.message ?? ""}`}
+        onRetry={refetch}
+      />
+    );
 
   return (
     <>

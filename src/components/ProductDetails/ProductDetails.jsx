@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import PageMetaTags from "../../pages/PageMetaTag/PageMetaTag";
+import ErrorState from "../ErrorState/ErrorState";
 import ProductInfo from "../ProductInfo/ProductInfo";
 import RelatedProducts from "../RelatedProducts/RelatedProducts";
 import useProductDetails from "./../../hooks/useProductDetails";
@@ -8,9 +9,18 @@ import ProductDetailsSkeleton from "./../Skeleton/ProductDetailsSkeleton";
 
 export default function ProductDetails() {
   const { id } = useParams();
-  const { productDetails, isLoading } = useProductDetails(id);
+  const { productDetails, isLoading, isError, error, refetch } =
+    useProductDetails(id);
 
   if (isLoading) return <ProductDetailsSkeleton />;
+
+  if (isError)
+    return (
+      <ErrorState
+        message={`We couldn't load this product. ${error?.message ?? ""}`}
+        onRetry={refetch}
+      />
+    );
 
   return (
     <>

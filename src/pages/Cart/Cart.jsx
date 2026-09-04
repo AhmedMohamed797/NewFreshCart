@@ -9,13 +9,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { Link } from "react-router";
 import CartItem from "../../components/CartItem/CartItem";
+import ErrorState from "../../components/ErrorState/ErrorState";
 import CartSkeleton from "./../../components/Skeleton/CartSkeleton";
 import { CartContext } from "./../../context/CartContext/CartContext";
 import PageMetaTags from "../PageMetaTag/PageMetaTag";
 
 export default function Cart() {
-  const { cartInfo, isLoading, handleClearCart } = useContext(CartContext);
+  const { cartInfo, isLoading, isError, error, refetchCart, handleClearCart } =
+    useContext(CartContext);
   if (isLoading) return <CartSkeleton />;
+
+  if (isError || !cartInfo)
+    return (
+      <ErrorState
+        title="We couldn't load your cart"
+        message={error?.message}
+        onRetry={refetchCart}
+      />
+    );
 
   const { numOfCartItems, data } = cartInfo;
   const { totalCartPrice, products } = data;

@@ -60,7 +60,7 @@ export default function Signup() {
         }, 3000);
       }
     } catch (error) {
-      setIsExistError(error.response.data.message);
+      setIsExistError(error.error?.response?.data?.message ?? error.message);
     }
   }
 

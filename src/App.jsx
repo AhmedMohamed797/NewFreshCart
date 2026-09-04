@@ -6,10 +6,10 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 library.add(fas, far, fab);
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserRouter, Navigate } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import { Bounce, ToastContainer } from "react-toastify";
-import { ReactQueryDevtools } from "./../node_modules/@tanstack/react-query-devtools/src/index";
 import AccountLayout from "./components/AccountLayout/AccountLayout";
 import Layout from "./components/Layout/Layout";
 import OfflineBadge from "./components/OfflineBadge/OfflineBadge";
@@ -145,7 +145,7 @@ function App() {
                 closeOnClick={true}
                 pauseOnHover={false}
                 rtl={false}
-                theme="colored"
+                theme="light"
                 closeButton={false}
                 transition={Bounce}
               />

@@ -10,43 +10,25 @@ import {
   faTruckFast,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
-import { getAllOrder } from "../../services/order.service";
+import ErrorState from "../../components/ErrorState/ErrorState";
+import useOrders from "../../hooks/useOrders";
 import OrdersSkeleton from "./../../components/Skeleton/OrdersSkeleton";
-import { TokenContext } from "./../../context/TokenContext/TokenContext";
 import PageMetaTags from "./../PageMetaTag/PageMetaTag";
 
 export default function Orders() {
-  const { userInfo } = useContext(TokenContext);
-
-  const [orders, setOrders] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function fetchOrders() {
-      try {
-        setIsLoading(true);
-        const response = await getAllOrder({ userId: userInfo.id });
-
-        if (response.success) {
-          setIsLoading(false);
-          setOrders(response.data);
-        }
-      } catch (error) {
-        setIsError(true);
-        setError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchOrders();
-  }, [userInfo.id]);
+  const { orders, isLoading, isError, error, refetch } = useOrders();
 
   if (isLoading) return <OrdersSkeleton />;
+
+  if (isError || !orders)
+    return (
+      <ErrorState
+        title="We couldn't load your orders"
+        message={error?.message}
+        onRetry={refetch}
+      />
+    );
 
   return (
     <>
@@ -74,7 +56,7 @@ export default function Orders() {
         {/* Order Card */}
         {orders.map((order) => {
           return (
-            <div className="overflow-x-auto">
+            <div key={order.id} className="overflow-x-auto">
               <div className="mb-3 min-w-200">
                 {/* Order Header */}
                 <div className="flex items-center justify-between rounded-md border border-gray-300 bg-gray-100/70 p-4">
