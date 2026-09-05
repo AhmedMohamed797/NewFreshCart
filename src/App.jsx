@@ -17,6 +17,7 @@ import ProductDetails from "./components/ProductDetails/ProductDetails";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import CartProvider from "./context/CartContext/CartProvider";
 import TokenProvider from "./context/TokenContext/TokenProvider";
+import Address from "./pages/Address/Address";
 import Brands from "./pages/Brands/Brands";
 import Cart from "./pages/Cart/Cart";
 import Categories from "./pages/Categories/Categories";
@@ -108,7 +109,7 @@ function App() {
             },
             {
               path: "address",
-              element: <h1>Address</h1>,
+              element: <Address />,
             },
             {
               path: "payment-methods",
